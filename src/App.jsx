@@ -1,5 +1,6 @@
 import { Container } from "react-bootstrap";
-import { Formulario } from "./components/Formulario";
+import { InputLupita } from "./components/InputLupita";
+import { ChakraProvider } from '@chakra-ui/react'
 
 
 function App() {
@@ -7,16 +8,19 @@ function App() {
 
   return (
     <>
-      <header 
-        className="py-4"
-      >
-        <h1>Buscador de imágenes</h1>
-      </header>
-
+        <header 
+          className="py-4"
+        >
+          <h1>Buscador de imágenes</h1>
+        </header>
       <Container
         className="mt-5"
       >
-          <Formulario/>
+        <ChakraProvider>
+
+          <InputLupita/>
+          
+        </ChakraProvider>
       </Container>
     </>
   )
