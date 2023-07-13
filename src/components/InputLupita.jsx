@@ -1,44 +1,41 @@
 import { useState, useEffect } from 'react'
-import { Input, InputRightElement, InputGroup, Stack, IconButton, FormControl, Flex, Box } from '@chakra-ui/react'
+import { Input, InputRightElement, InputGroup, Stack, IconButton, FormControl, Flex, Box, Grid } from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons'
 import axios from 'axios'
 import { CardProp } from './CardProp';
 
 
-
 const InputLupita = () => {
-    const [valor, setValor] = useState('');
-    const [resultados, setResultados] = useState([]);
+  const [valor, setValor] = useState('');
+  const [resultados, setResultados] = useState([]);
 
-      useEffect(() => {
-        const obtenerResultadosAleatorios = async () => {
-          const API_KEY = 'Rh0MrNKHaRC-Z6pYhdcILROTKt-H1hYv6GW9YMj8SeA';
-          const URL = `https://api.unsplash.com/photos/random?client_id=${API_KEY}&count=10`;
+  useEffect(() => {
+    const obtenerResultadosAleatorios = async () => {
+      const API_KEY = 'Rh0MrNKHaRC-Z6pYhdcILROTKt-H1hYv6GW9YMj8SeA';
+      const URL = `https://api.unsplash.com/photos/random?client_id=${API_KEY}&count=10`;
 
-          try {
-            const response = await axios.get(URL);
-            /* console.log(response.data); */
-            setResultados(response.data);
-          } catch (error) {
-            console.error(error);
-          }
-        };
+      try {
+        const response = await axios.get(URL);
+        setResultados(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-        obtenerResultadosAleatorios();
-      }, []);
+    obtenerResultadosAleatorios();
+  }, []);
 
-      const handleBuscar = async () => {
-        const API_KEY = 'Rh0MrNKHaRC-Z6pYhdcILROTKt-H1hYv6GW9YMj8SeA';
-        const URL = `https://api.unsplash.com/search/photos/?client_id=${API_KEY}&query=${valor}`;
+  const handleBuscar = async () => {
+    const API_KEY = 'Rh0MrNKHaRC-Z6pYhdcILROTKt-H1hYv6GW9YMj8SeA';
+    const URL = `https://api.unsplash.com/search/photos/?client_id=${API_KEY}&query=${valor}`;
 
-        try {
-          const response = await axios.get(URL);
-          /* console.log(response.data); */
-          setResultados(response.data.results);
-        } catch (error) {
-          console.error(error);
-        }
-      };
+    try {
+      const response = await axios.get(URL);
+      setResultados(response.data.results);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Box>
@@ -79,18 +76,10 @@ const InputLupita = () => {
         </Stack>
       </Flex>
 
-      {/* <div>
-        {resultados.map(resultado => (
-          <div key={resultado.id}>{resultado.color}</div>
-        ))}
-      </div> */}
-
-      <CardProp resultado = {resultados.map((objeto) => {
-        return objeto
-        //console.log(objeto.alt_description);
-        
-        //return null; // Agrega un retorno nulo para evitar una advertencia de React
-      }) }/>
+      <Grid templateColumns={['1fr', '1fr ', '1fr 1fr', '1fr 1fr 1fr']} gap={4} mt={8}>
+        <CardProp resultado={resultados} />
+      </Grid>
+      
     </Box>
   );
 };
