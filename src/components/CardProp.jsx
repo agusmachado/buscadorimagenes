@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardBody, CardFooter, Image, Heading, Text, Divider, Flex, Avatar, Box } from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, CardFooter, Image, Heading, Text, Divider, Flex, Avatar, Box, AspectRatio} from '@chakra-ui/react'
 
 
 const CardProp = ({ resultado }) => {
@@ -9,11 +9,13 @@ const CardProp = ({ resultado }) => {
       {resultado.map(({ id, alt_description, urls, description, user}) => (
         <Card key={id}>
           <CardBody>
-            <Image src={urls.regular} />
+            <AspectRatio ratio={1}>
+              <Image src={urls.regular} />
+            </AspectRatio>
             <Heading size='md'>              
               {alt_description.toUpperCase()}
             </Heading>
-            <Text>
+            <Text minH='20' fontSize='sm'>
               {description}
             </Text>
             <Text>
@@ -21,7 +23,9 @@ const CardProp = ({ resultado }) => {
             </Text>
             <Flex>
             <Avatar name='' src={user.profile_image.medium} />
-            <Box>
+            <Box
+              p={5}
+            >
               <Heading size='sm'>{user.name}</Heading>
               <Text size='sm'>{user.bio}</Text>
             </Box>
