@@ -1,6 +1,7 @@
 import { Container } from "react-bootstrap"
 import { InputLupita } from "./components/InputLupita"
 import { ChakraProvider } from '@chakra-ui/react'
+import { ApiCombinada } from "./components/ApiCombinada"
 
 
 function App() {
@@ -15,8 +16,8 @@ function App() {
         </header>
       <Container className="mt-5">
         <ChakraProvider>
-
-          <InputLupita/>
+          {/* <ApiCombinada/> */}
+          <InputLupita/> 
 
         </ChakraProvider>
       </Container>   

@@ -1,11 +1,12 @@
+
 import { useState, useEffect } from 'react'
 import { Input, InputRightElement, InputGroup, Stack, IconButton, FormControl, Flex, Box, Grid } from '@chakra-ui/react'
 import { SearchIcon } from '@chakra-ui/icons'
 import axios from 'axios'
 import { CardProp } from './CardProp';
 
-
-const InputLupita = () => {
+const ApiCombinada = () => {
+   
   const [valor, setValor] = useState('');
   const [resultados, setResultados] = useState([]);  
 
@@ -29,15 +30,20 @@ const InputLupita = () => {
 
   const handleBuscar = async () => {
     const API_KEY = 'NuJtJPXVsxa0fKb2deVo-Ah08FdeE7xyi3kBDqfg6YI';
+    
     const URL = `https://api.unsplash.com/search/photos/?client_id=${API_KEY}&query=${valor}`;    
 
     try {
-      const response = await axios.get(URL);
-      setResultados(response.data.results);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+        const response = await axios.get(URL);
+        const resultadosConId = response.data.results.map((resultado) => ({
+          ...resultado,
+          id: resultado.id, // Agregar la propiedad 'id' con el valor del ID de la foto
+        }));
+        setResultados(resultadosConId);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
   return (
     <Box>
@@ -86,4 +92,5 @@ const InputLupita = () => {
   );
 };
 
-export { InputLupita }
+
+export { ApiCombinada }
