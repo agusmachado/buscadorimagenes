@@ -1,16 +1,16 @@
-
+import { useEffect } from 'react';
 import { Card, CardBody, Image, Heading, Text, Divider, Flex, Avatar, Box, AspectRatio} from '@chakra-ui/react'
+import axios from 'axios';
+
 
 
 const CardProp = ({ resultado }) => {
   console.log(resultado); // Mueve el console.log fuera del bloque JSX
 
   
-
-
   return (
     <>
-      {resultado.map(({ id, alt_description, urls, description, user, exif}) => (
+      {resultado.map(({ id, alt_description, urls, description, user, exif }) => (
         <Card key={id}>
           <CardBody>
             <AspectRatio ratio={1}>
@@ -26,18 +26,18 @@ const CardProp = ({ resultado }) => {
               {description}
             </Text>
             <Text>
-              <strong>Cámara:</strong> {exif && exif.name ? exif.name : 'No disponible'}
+            <strong>Cámara:</strong> {exif?.name || 'No disponible'}
+
+            {/* <strong>Cámara:</strong> {exif && exif.name ? exif.name : 'No disponible'} */}
             </Text>
             <Flex>
-            <Avatar name='' src={user.profile_image.medium} />
-            <Box
-              p={5}
-            >
-              <Heading size='sm'>{user.name}</Heading>
-              <Text size='sm'>{user.bio}</Text>
-            </Box>
+              <Avatar name='' src={user.profile_image.medium} />
+              <Box p={5}>
+                <Heading size='sm'>{user.name}</Heading>
+                <Text size='sm'>{user.bio}</Text>
+              </Box>
             </Flex>
-            <Divider/>
+            <Divider />
           </CardBody>
         </Card>
       ))}
@@ -46,6 +46,9 @@ const CardProp = ({ resultado }) => {
 };
 
 export { CardProp };
+
+
+
 
 
 

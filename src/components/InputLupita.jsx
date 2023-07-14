@@ -1,39 +1,69 @@
-import { useState, useEffect } from 'react'
-import { Input, InputRightElement, InputGroup, Stack, IconButton, FormControl, Flex, Box, Grid } from '@chakra-ui/react'
-import { SearchIcon } from '@chakra-ui/icons'
-import axios from 'axios'
+import { useState, useEffect } from 'react';
+import { Input, InputRightElement, InputGroup, Stack, IconButton, FormControl, Flex, Box, Grid } from '@chakra-ui/react';
+import { SearchIcon } from '@chakra-ui/icons';
+import axios from 'axios';
 import { CardProp } from './CardProp';
 
+const obtenerResultadosAleatorios = async () => {
+  const API_KEY = 'et38C93Ixcrf7IF8VxpeZaTg8ZAQy49NBSURR8tr-ZA';
+  const URL = `https://api.unsplash.com/photos/random?client_id=${API_KEY}&count=10`;
 
-const InputLupita = () => {
-  const [valor, setValor] = useState('');
-  const [resultados, setResultados] = useState([]);  
+  try {
+    const response = await axios.get(URL);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
 
-  useEffect(() => {
-    const obtenerResultadosAleatorios = async () => {
+const obtenerDetallesDeFoto = async (nuevosResultados) => {
+  const API_KEY = 'et38C93Ixcrf7IF8VxpeZaTg8ZAQy49NBSURR8tr-ZA';
 
-
-      const API_KEY = 'NuJtJPXVsxa0fKb2deVo-Ah08FdeE7xyi3kBDqfg6YI';
-      const URL = `https://api.unsplash.com/photos/random?client_id=${API_KEY}&count=10&`;      
+  const resultadosConExif = await Promise.all(
+    nuevosResultados.map(async (resultadoItem) => {
+      const ID = resultadoItem.id;
+      const URL = `https://api.unsplash.com/photos/${ID}?client_id=${API_KEY}&exif=true`;
 
       try {
         const response = await axios.get(URL);
-        setResultados(response.data);
+        const resultadoConExif = {
+          ...resultadoItem,
+          exif: response.data.exif,
+        };
+        return resultadoConExif;
       } catch (error) {
         console.error(error);
+        return resultadoItem;
       }
-    };
+    })
+  );
 
-    obtenerResultadosAleatorios();
+  return resultadosConExif;
+};
+
+const InputLupita = () => {
+  const [valor, setValor] = useState('');
+  const [resultados, setResultados] = useState([]);
+
+  useEffect(() => {
+    obtenerResultadosAleatorios().then((data) => setResultados(data));
   }, []);
 
   const handleBuscar = async () => {
-    const API_KEY = 'NuJtJPXVsxa0fKb2deVo-Ah08FdeE7xyi3kBDqfg6YI';
-    const URL = `https://api.unsplash.com/search/photos/?client_id=${API_KEY}&query=${valor}`;    
+    const API_KEY = 'et38C93Ixcrf7IF8VxpeZaTg8ZAQy49NBSURR8tr-ZA';
+    const URL = `https://api.unsplash.com/search/photos/?client_id=${API_KEY}&query=${valor}`;
 
     try {
       const response = await axios.get(URL);
-      setResultados(response.data.results);
+      const nuevosResultados = response.data.results.map((resultado) => ({
+        ...resultado,
+        id: resultado.id,
+        exif: null,
+      }));
+
+      const resultadosConExif = await obtenerDetallesDeFoto(nuevosResultados);
+      setResultados(resultadosConExif);
     } catch (error) {
       console.error(error);
     }
@@ -46,13 +76,13 @@ const InputLupita = () => {
           <FormControl>
             <InputGroup>
               <Input
-                type='text'
-                placeholder='Ej: Paisaje, Skate, Ciudad, etc...'
-                size='lg'
+                type="text"
+                placeholder="Ej: Paisaje, Skate, Ciudad, etc..."
+                size="lg"
                 value={valor}
-                onChange={e => setValor(e.target.value)}
-                border='none'
-                borderColor='transparent'
+                onChange={(e) => setValor(e.target.value)}
+                border="none"
+                borderColor="transparent"
                 _hover={{
                   borderColor: 'darkgray'
                 }}
@@ -60,17 +90,17 @@ const InputLupita = () => {
                   boxShadow: 'none',
                   borderColor: 'darkgray'
                 }}
-                borderBottom='2px solid darkgray'
+                borderBottom="2px solid darkgray"
               />
-              <InputRightElement width='4.5rem'>
+              <InputRightElement width="4.5rem">
                 <IconButton
                   onClick={handleBuscar}
-                  aria-label='Search database'
+                  aria-label="Search database"
                   icon={<SearchIcon />}
-                  h='100%'
-                  w='100%'
-                  mr='0.5rem'
-                  mt='0.5rem'
+                  h="100%"
+                  w="100%"
+                  mr="0.5rem"
+                  mt="0.5rem"
                 />
               </InputRightElement>
             </InputGroup>
@@ -79,9 +109,8 @@ const InputLupita = () => {
       </Flex>
 
       <Grid templateColumns={['1fr', '1fr ', '1fr 1fr', '1fr 1fr 1fr']} gap={4} mt={8}>
-        <CardProp resultado={resultados} />
+        {resultados.length > 0 && <CardProp resultado={resultados} />}
       </Grid>
-      
     </Box>
   );
 };
