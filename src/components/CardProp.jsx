@@ -17,7 +17,7 @@ const CardProp = ({ resultado }) => {
               <Image src={urls.regular} />
             </AspectRatio>
             <Text>
-              <strong>Ubicación:</strong> {user.location}
+              <strong>Ubicación:</strong> {user?.location || 'No disponible'}
             </Text>
             <Heading size='md'>              
               {alt_description.toUpperCase()}

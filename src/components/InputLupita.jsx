@@ -3,9 +3,10 @@ import { Input, InputRightElement, InputGroup, Stack, IconButton, FormControl, F
 import { SearchIcon } from '@chakra-ui/icons';
 import axios from 'axios';
 import { CardProp } from './CardProp';
+import API_KEY from './config';
 
 const obtenerResultadosAleatorios = async () => {
-  const API_KEY = 'et38C93Ixcrf7IF8VxpeZaTg8ZAQy49NBSURR8tr-ZA';
+  
   const URL = `https://api.unsplash.com/photos/random?client_id=${API_KEY}&count=10`;
 
   try {
@@ -18,8 +19,7 @@ const obtenerResultadosAleatorios = async () => {
 };
 
 const obtenerDetallesDeFoto = async (nuevosResultados) => {
-  const API_KEY = 'et38C93Ixcrf7IF8VxpeZaTg8ZAQy49NBSURR8tr-ZA';
-
+  
   const resultadosConExif = await Promise.all(
     nuevosResultados.map(async (resultadoItem) => {
       const ID = resultadoItem.id;
@@ -51,7 +51,7 @@ const InputLupita = () => {
   }, []);
 
   const handleBuscar = async () => {
-    const API_KEY = 'et38C93Ixcrf7IF8VxpeZaTg8ZAQy49NBSURR8tr-ZA';
+    
     const URL = `https://api.unsplash.com/search/photos/?client_id=${API_KEY}&query=${valor}`;
 
     try {
