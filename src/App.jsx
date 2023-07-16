@@ -1,6 +1,6 @@
 import { Container } from "react-bootstrap"
-import { InputLupita } from "./components/InputLupita"
 import { ChakraProvider } from '@chakra-ui/react'
+import { InputLupita } from "./components/Buscador/InputLupita"
 
 
 function App() {

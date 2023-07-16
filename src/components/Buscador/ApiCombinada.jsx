@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { Input, InputRightElement, InputGroup, Stack, IconButton, FormControl, Flex, Box, Grid } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import axios from 'axios';
-import { CardProp } from './CardProp';
-import API_KEY from './config';
+import { CardProp } from '../Card/CardProp';
+import API_KEY from '../config';
 
 const obtenerResultadosAleatorios = async () => {
   
@@ -42,7 +42,7 @@ const obtenerDetallesDeFoto = async (nuevosResultados) => {
   return resultadosConExif;
 };
 
-const InputLupita = () => {
+const ApiCombinada = () => {
   const [valor, setValor] = useState('');
   const [resultados, setResultados] = useState([]);
 
@@ -115,4 +115,7 @@ const InputLupita = () => {
   );
 };
 
-export { InputLupita }
+
+
+
+export { ApiCombinada };
