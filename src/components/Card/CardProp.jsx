@@ -1,8 +1,10 @@
 import { Box, Grid, Card, CardBody, Image, Heading, Text, Divider, Flex, Avatar, AspectRatio } from '@chakra-ui/react';
 import { TagButton } from './TagButton';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const CardProp = ({ resultado }) => {
-  console.log(resultado); // Mueve el console.log fuera del bloque JSX
+ /*  console.log(resultado); */ // Mueve el console.log fuera del bloque JSX
 
   return (
     <Box>
@@ -11,7 +13,13 @@ const CardProp = ({ resultado }) => {
         <Card key={id}>
           <CardBody>
             <AspectRatio ratio={1}>
-              <Image src={urls.regular} />
+              <LazyLoadImage
+                  src={urls.regular}
+                  alt={alt_description}
+                  effect='blur'
+                  width='100%'
+                  height='100%' 
+                />
             </AspectRatio>
             <Text>
               <strong>Ubicación:</strong> {user?.location || 'No disponible'}

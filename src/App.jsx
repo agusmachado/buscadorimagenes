@@ -3,6 +3,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { InputLupita } from "./components/Buscador/InputLupita"
 
 
+
 function App() {
   
 
@@ -13,6 +14,9 @@ function App() {
         >
           <h1>Buscador de imágenes</h1>
         </header>
+      
+
+      
       <Container className="mt-5">
         <ChakraProvider>
           

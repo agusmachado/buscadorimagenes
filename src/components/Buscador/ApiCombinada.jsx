@@ -52,7 +52,7 @@ const ApiCombinada = () => {
 
   const handleBuscar = async () => {
     
-    const URL = `https://api.unsplash.com/search/photos/?client_id=${API_KEY}&query=${valor}`;
+    const URL = `https://api.unsplash.com/search/photos/?client_id=${API_KEY}&query=${valor}&count=1`;
 
     try {
       const response = await axios.get(URL);

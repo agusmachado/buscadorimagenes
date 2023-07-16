@@ -5,6 +5,8 @@ import axios from 'axios';
 import { CardProp } from '../Card/CardProp';
 import API_KEY from '../config';
 
+
+
 const obtenerResultadosAleatorios = async () => {
   
   const URL = `https://api.unsplash.com/photos/random?client_id=${API_KEY}&count=10`;
@@ -110,7 +112,8 @@ const InputLupita = () => {
 
       
         {resultados.length > 0 && <CardProp resultado={resultados} />}
-     
+        
+      
     </Box>
   );
 };
