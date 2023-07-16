@@ -6,6 +6,14 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 const CardProp = ({ resultado }) => {
  /*  console.log(resultado); */ // Mueve el console.log fuera del bloque JSX
 
+        const handleImageHover = (e) => {
+          e.target.style.transform = 'scale(1.1)';
+        };
+
+        const handleImageLeave = (e) => {
+          e.target.style.transform = 'scale(1)';
+        };
+
   return (
     <Box>
        <Grid templateColumns={['1fr', '1fr ', '1fr 1fr', '1fr 1fr 1fr']} gap={4} mt={8}>
@@ -19,6 +27,9 @@ const CardProp = ({ resultado }) => {
                   effect='blur'
                   width='100%'
                   height='100%' 
+                  onMouseEnter={handleImageHover}
+                  onMouseLeave={handleImageLeave}
+                  style={{ transition: 'transform 0.3s ease' }}
                 />
             </AspectRatio>
             <Text>
