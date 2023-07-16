@@ -9,7 +9,7 @@ import API_KEY from '../config';
 
 const obtenerResultadosAleatorios = async () => {
   
-  const URL = `https://api.unsplash.com/photos/random?client_id=${API_KEY}&count=10`;
+  const URL = `https://api.unsplash.com/photos/random?client_id=${API_KEY}&count=30`;
 
   try {
     const response = await axios.get(URL);
