@@ -1,4 +1,4 @@
-import { Box, Grid, Card, CardBody, Image, Heading, Text, Divider, Flex, Avatar, AspectRatio } from '@chakra-ui/react';
+import { Box, Grid, Card, CardBody, Heading, Text, Divider, Flex, Avatar, AspectRatio } from '@chakra-ui/react';
 import { TagButton } from './TagButton';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
